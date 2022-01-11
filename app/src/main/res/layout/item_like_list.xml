@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="data"
+            type="com.example.githubusersearch.database.FavoriteEntity" />
+        <variable
+            name="viewModel"
+            type="com.example.githubusersearch.ui.like.LikeListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_user_profile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:loadImageOrDefault="@{data.avatar_url}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.login}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/font_black"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_user_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_home_item_heart"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/bg_heart_selector"
+            app:isSelected="@{data.isFavorite()}"
+            android:onClick="@{(v) -> viewModel.udpateFavorite(data.node_id, data.id, data.login, data.avatar_url, v.isSelected)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
